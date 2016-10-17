@@ -17,9 +17,10 @@ var process_message = function(text, reply) {
     uri: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     json: data
   })
-    .then(([res, body]) => {
+    .then(res => {
       let text;
-      if (res.statusCode === 400) {
+      let body = res.body;
+      if (res.statusCode === 404) {
         text = 'Could not match foods';
       }
       else if (res.statusCode > 200) {

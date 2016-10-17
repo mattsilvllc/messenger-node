@@ -2,11 +2,7 @@ const http = require('http')
 const Bot = require('messenger-bot')
 const conf = require(`./config/${process.env.NODE_ENV || 'production'}`);
 
-let bot = new Bot({
-  token: 'PAGE_TOKEN',
-  verify: 'VERIFY_TOKEN',
-  app_secret: 'APP_SECRET'
-})
+let bot = new Bot(config.mBot);
 
 bot.on('error', (err) => {
   console.log(err.message)

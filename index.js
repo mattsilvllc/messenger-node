@@ -1,4 +1,3 @@
-const http = require('http')
 const Bot = require('messenger-bot')
 const config = require(`./config/${process.env.NODE_ENV || 'production'}`);
 var bot_helper = require('./helpers/bot_helpers.js');
@@ -10,12 +9,13 @@ bot.on('error', (err) => {
 })
 
 bot.on('message', (payload, reply) => {
+  console.log('payload', payload);
+  console.log('reply', reply);
   let text = payload.message.text;
 
   var response = bot_helper.process_message(text);
   reply({ text: response }, (err) => {
     if (err) throw err
-    console.log(`Echoed back to ${profile.first_name} ${profile.last_name}: ${text}`)
   })
 
 })

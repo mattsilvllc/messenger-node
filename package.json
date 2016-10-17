@@ -24,6 +24,7 @@
     "lodash": "^4.16.4",
     "messenger-bot": "^2.4.0",
     "optimist": "^0.6.1",
+    "request": "^2.75.0",
     "string": "^3.3.3",
     "underscore": "^1.8.3"
   }

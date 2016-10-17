@@ -3,15 +3,16 @@ var querystring = require('querystring');
 var request = require('request');
 
 var process_message = function(text) {
-  var data = querystring.stringify({'query': text});
+  var data = {'query': text};
 
   request({
     headers: config.threeScale,
     uri: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-    body: data,
+    json: data,
     method: 'POST'
   }, function(err, res, body) {
-    console.log(body)
+    console.log(body);
+    console.log(err);
     if (!err) {
       return body.foods[0].food_name + ' has about ' + body.foods[0].nf_calories + ' calories.';
     } else {

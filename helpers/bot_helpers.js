@@ -6,7 +6,10 @@ var process_message = function(text) {
   var data = {'query': text};
 
   request({
-    headers: config.threeScale,
+    headers: {
+      'x-app-id': config.threeScale.appid,
+      'x-app-key': config.threeScale.appkey
+    },
     uri: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     json: data,
     method: 'POST'

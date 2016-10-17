@@ -3,5 +3,9 @@ module.exports = {
     token: 'PAGE_TOKEN',
     verify: 'VERIFY_TOKEN',
     app_secret: 'APP_SECRET'
+  },
+  threeScale: {
+    appId: 'appid',
+    appKey: 'appkey'
   }
 }

@@ -7,19 +7,17 @@ var process_message = function(text) {
 
   request({
     headers: {
-      'x-app-id': config.threeScale.appid,
-      'x-app-key': config.threeScale.appkey
+      'x-app-id': config.threeScale.appId,
+      'x-app-key': config.threeScale.appKey
     },
     uri: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     json: data,
     method: 'POST'
   }, function(err, res, body) {
-    console.log(body);
-    console.log(err);
-    if (!err) {
-      return body.foods[0].food_name + ' has about ' + body.foods[0].nf_calories + ' calories.';
-    } else {
+    if (res.status_code !=== 200) {
       return 'Could not detect any foods.'
+    } else {
+      return body.foods[0]s.food_name + ' has about ' + body.foods[0].nf_calories + ' calories.';
     }
 
   })

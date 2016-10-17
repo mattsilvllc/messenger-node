@@ -3,13 +3,10 @@ var querystring = require('querystring');
 var request = require('request');
 
 var process_message = function(text) {
-  var data = querystring.stringify({query: text});
+  var data = querystring.stringify({'query': text});
 
   request({
-    headers: {
-      'x-app-id': config.threeScale.appId,
-      'x-app-key': config.threeScale.appKey
-    },
+    headers: config.threeScale,
     uri: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     body: data,
     method: 'POST'

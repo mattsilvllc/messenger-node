@@ -14,7 +14,8 @@ var process_message = function(text) {
     body: data,
     method: 'POST'
   }, function(err, res, body) {
-    if (!error) {
+    console.log(body)
+    if (!err) {
       return body.foods[0].food_name + ' has about ' + body.foods[0].nf_calories + ' calories.';
     } else {
       return 'Could not detect any foods.'

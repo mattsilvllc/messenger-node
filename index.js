@@ -1,6 +1,6 @@
 const http = require('http')
 const Bot = require('messenger-bot')
-const conf = require(`./config/${process.env.NODE_ENV || 'production'}`);
+const config = require(`./config/${process.env.NODE_ENV || 'production'}`);
 
 let bot = new Bot(config.mBot);
 

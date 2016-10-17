@@ -1,0 +1,7 @@
+{
+  "user": "ubuntu",
+  "hosts": "name_track_messenger_0",
+  "branch": "master",
+  "git_repo": "git@github.com:mattsilvllc/messenger-node.git",
+  "repo_root_path": "/home/ubuntu/messenger-node"
+}

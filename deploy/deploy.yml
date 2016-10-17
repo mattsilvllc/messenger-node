@@ -1,0 +1,20 @@
+# ---
+# Host Name for app server
+- hosts: "{{ hosts }}"
+  user: "{{ user }}"
+  tasks:
+
+    - name: Pulling repo
+      git: repo={{ git_repo }} dest={{ repo_root_path }} force=True version={{ branch }} accept_hostkey=True
+
+    - name: Clean the app directory
+      command: git checkout -- . chdir={{repo_root_path}}
+
+    - name: Updating Dependecies if needed - package.json
+      npm: path={{ repo_root_path }}
+
+    - name: Ensure application tmp dir exists
+      file: path={{ repo_root_path }}/tmp state=directory
+
+    - name: Restart Application
+      file: name={{ repo_root_path }}/tmp/restart.txt state=touch

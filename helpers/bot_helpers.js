@@ -8,7 +8,7 @@ var request = bb.promisifyAll(require('request'));
 var db = require('../lib/db')(config.database);
 var trackutils = require('../lib/trackUtils')(db);
 
-var nutrients_helper = function(text) {
+var nutrients_helper = function(text, reply) {
   reply({text: "Link your account and log foods directly onto your Track foodlog. Once linked, begin adding foods to your log by messaging me what you ate."});
   reply({
     attachment: {
@@ -76,7 +76,7 @@ var nutrients_helper = function(text) {
     });
 }
 
-var log_helper = function(text, user_jwt) {
+var log_helper = function(text, user_jwt, reply) {
   var data = {'query': text};
 
   return request.postAsync({
@@ -134,9 +134,9 @@ var process_message = function(payload, reply) {
   var trackAccount = trackutils.getTokenByScopedId(payload.sender.id)
     .then(credentials => {
       if (!credentials) {
-        return nutrients_helper(payload.message.text);
+        return nutrients_helper(payload.message.text, reply);
       } else {
-        return log_helper(payload.message.text, credentials['x-user-jwt']);
+        return log_helper(payload.message.text, credentials['x-user-jwt'],reply);
       }
     })
 

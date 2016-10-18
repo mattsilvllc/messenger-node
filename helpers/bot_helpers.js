@@ -9,17 +9,6 @@ var db = require('../lib/db')(config.database);
 var trackutils = require('../lib/trackUtils')(db);
 
 var nutrients_helper = function(text, reply) {
-  reply({text: "Link your account and log foods directly onto your Track foodlog. Once linked, begin adding foods to your log by messaging me what you ate."});
-  reply({
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'generic',
-        elements: [{title: "login", buttons: [{type: "account_link", url: "https://www.nutritionix.com/messenger-bot/authorize"}]}]
-      }
-    }
-  })
-
   var data = {'query': text};
 
   return request.postAsync({
@@ -69,6 +58,24 @@ var nutrients_helper = function(text, reply) {
             }
           }
         })
+          .then(() => {
+            let promptUser = (Math.round() * 10) < 1;
+            if (promptUser) {
+              return reply({text: "You know, you can link your account to keep a record of foods you log. Hold on, let me find that link..."})
+                .delay(700)
+                .then(() => {
+                  return reply({
+                    attachment: {
+                      type: 'template',
+                      payload: {
+                        template_type: 'generic',
+                        elements: [{title: "login", buttons: [{type: "account_link", url: "https://www.nutritionix.com/messenger-bot/authorize"}]}]
+                      }
+                    }
+                  })
+                })
+            }
+          })
       }
     })
     .catch(err => {

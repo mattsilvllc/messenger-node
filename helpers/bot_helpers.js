@@ -69,7 +69,20 @@ var process_message = function(text, reply) {
     });
 };
 
+var welcome = function(reply) {
+  return reply({
+    attachement: {
+      type: 'template',
+      payload: {
+        template_type: 'generic',
+        element: [{title: "login", buttons: [{type: "account_link", url: "https://www.nutritionix.com/messenger-bot/authorize"}]}]
+      }
+    }
+  })
+};
+
 
 module.exports = {
-  process_message
+  process_message,
+  welcome
 };

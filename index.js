@@ -15,5 +15,10 @@ bot.on('message', (payload, reply) => {
   bot_helper.process_message(text, bb.promisify(reply));
 })
 
+bot.on('postback', (payload, reply) => {
+  console.log(payload);
+  bot_helper.welcome(bb.promisify(resply));
+})
+
 http.createServer(bot.middleware()).listen(3000)
 console.log('Echo bot server running at port 3000.')

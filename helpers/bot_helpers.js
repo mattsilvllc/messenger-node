@@ -22,14 +22,33 @@ var process_message = function(text, reply) {
       let body = res.body;
       if (res.statusCode === 404) {
         text = 'Could not match foods';
+        return reply({text});
       }
       else if (res.statusCode > 200) {
         throw new Error(`status code: ${res.statusCode}`);
       } else {
-        let cals = _.reduce(body.foods, (a, b) => a + b.nf_calories, 0);
-        text = `you ate ${cals} calories`;
+        let elements = [];
+        _.forEach(body.foods, function(food) {
+          let nat_q = food.serving_qty + ' ' + food.serving_unit + ' ' + food.food_name
+          let element = {
+            title: food.food_name,
+            subtitle: food.serving_qty + ' ' + food.serving_unit,
+            image_url: food.thumb.photo,
+            buttons: [{type: 'web_url', title: 'View Details', url: 'https://www.nutritionix.com/natural-demo?q=${nat_q}'}]
+          };
+          elements.push(element);
+        })
+
+        return reply({
+          attachment: {
+            type: 'template',
+            payload: {
+              template_type: 'generic',
+              elements: elements
+            }
+          }
+        })
       }
-      return reply({text});
     })
     .catch(err => {
       console.error(err);

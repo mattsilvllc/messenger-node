@@ -17,7 +17,7 @@ bot.on('message', (payload, reply) => {
 
 bot.on('postback', (payload, reply) => {
   console.log(payload);
-  bot_helper.welcome(bb.promisify(resply));
+  bot_helper.welcome(bb.promisify(reply));
 })
 
 http.createServer(bot.middleware()).listen(3000)

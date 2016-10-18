@@ -70,12 +70,13 @@ var process_message = function(text, reply) {
 };
 
 var welcome = function(reply) {
-  return reply({
-    attachement: {
+  reply({text: "Please link your account"});
+  reply({
+    attachment: {
       type: 'template',
       payload: {
         template_type: 'generic',
-        element: [{title: "login", buttons: [{type: "account_link", url: "https://www.nutritionix.com/messenger-bot/authorize"}]}]
+        elements: [{title: "login", buttons: [{type: "account_link", url: "https://www.nutritionix.com/messenger-bot/authorize"}]}]
       }
     }
   })

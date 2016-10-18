@@ -158,6 +158,7 @@ var welcome = function(reply) {
 };
 
 var confirmLink = function(reply) {
+  console.log('conflink');
   return reply({text: 'You have succesffully linked. What have you eaten today?'})
 }
 

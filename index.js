@@ -11,6 +11,7 @@ bot.on('error', (err) => {
 })
 
 bot.on('message', (payload, reply) => {
+  console.log(payload);
   bot_helper.process_message(payload, bb.promisify(reply));
 })
 
@@ -19,6 +20,7 @@ bot.on('postback', (payload, reply) => {
 })
 
 bot.on('accountLinked', (payload, reply) => {
+  console.log('pay:', payload);
   bot_helper.confirmLink(bb.promisify(reply));
 })
 

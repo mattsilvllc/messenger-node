@@ -11,12 +11,10 @@ bot.on('error', (err) => {
 })
 
 bot.on('message', (payload, reply) => {
-  let text = payload.message.text;
-  bot_helper.process_message(text, bb.promisify(reply));
+  bot_helper.process_message(payload, bb.promisify(reply));
 })
 
 bot.on('postback', (payload, reply) => {
-  console.log(payload);
   bot_helper.welcome(bb.promisify(reply));
 })
 

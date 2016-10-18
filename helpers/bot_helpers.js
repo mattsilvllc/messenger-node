@@ -59,10 +59,10 @@ var nutrients_helper = function(text, reply) {
           }
         })
           .then(() => {
-            let promptUser = (Math.round() * 10) < 1;
+            let promptUser = (Math.random() * 10) < 1;
             if (promptUser) {
               return reply({text: "You know, you can link your account to keep a record of foods you log. Hold on, let me find that link..."})
-                .delay(700)
+                .delay(1500)
                 .then(() => {
                   return reply({
                     attachment: {

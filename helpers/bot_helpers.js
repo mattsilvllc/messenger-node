@@ -27,14 +27,22 @@ var process_message = function(text, reply) {
       else if (res.statusCode > 200) {
         throw new Error(`status code: ${res.statusCode}`);
       } else {
+
         let elements = [];
+        let cals = _.reduce(body.foods, (a, b) => a + b.nf_calories, 0);
+        text = `You ate ${cals} total calories. Fetching more detailed nutrition information for you.`;
+        reply({text})
         _.forEach(body.foods, function(food) {
           let nat_q = food.serving_qty + ' ' + food.serving_unit + ' ' + food.food_name
+          if (food.food_name.includes(food.serving_unit)) {
+            nat_q = foosd.serving_qty + ' ' + food.food_name;
+          }
+
           let element = {
             title: food.food_name,
             subtitle: food.serving_qty + ' ' + food.serving_unit,
-            image_url: food.thumb.photo,
-            buttons: [{type: 'web_url', title: 'View Details', url: 'https://www.nutritionix.com/natural-demo?q=${nat_q}'}]
+            image_url: food.photo.thumb,
+            buttons: [{type: 'web_url', title: 'View Details', url: `https://www.nutritionix.com/natural-demo?q=${nat_q}`}]
           };
           elements.push(element);
         })

@@ -7,6 +7,12 @@ const bb = require('bluebird');
 var request = bb.promisifyAll(require('request'));
 
 var process_message = function(text, reply) {
+  reply({
+    setting_type: 'greeting',
+    greeting: {
+      text: 'Welcome to Nutritionix Track. I can give you nutrition info for many different foods. Simply list the foods you would like to know about.'
+    }
+  })
   var data = {'query': text};
 
   return request.postAsync({
@@ -30,12 +36,12 @@ var process_message = function(text, reply) {
 
         let elements = [];
         let cals = _.reduce(body.foods, (a, b) => a + b.nf_calories, 0);
-        text = `You ate ${cals} total calories. Fetching more detailed nutrition information for you.`;
+        text = `That is about ${cals} total calories. Click the link below for more nutrition details.`;
         reply({text})
         _.forEach(body.foods, function(food) {
           let nat_q = food.serving_qty + ' ' + food.serving_unit + ' ' + food.food_name
           if (food.food_name.includes(food.serving_unit)) {
-            nat_q = foosd.serving_qty + ' ' + food.food_name;
+            nat_q = food.serving_qty + ' ' + food.food_name;
           }
 
           let element = {

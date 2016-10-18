@@ -95,7 +95,7 @@ var log_helper = function(text, user_jwt, reply) {
         text = 'Could not identify foods to add.';
         return reply({text});
       }
-      else if (res.statusCode > 200) {
+      else if (res.statusCode > 201) {
         throw new Error(`status code: ${res.statusCode}`);
       } else {
         let elements = [];
@@ -165,5 +165,6 @@ var confirmLink = function(reply) {
 
 module.exports = {
   process_message,
-  welcome
+  welcome,
+  confirmLink
 };

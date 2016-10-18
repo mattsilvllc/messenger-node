@@ -18,5 +18,9 @@ bot.on('postback', (payload, reply) => {
   bot_helper.welcome(bb.promisify(reply));
 })
 
+bot.on('accountLinked', (payload, reply) => {
+  bot_helper.confirmLink(bb.promisify(reply));
+})
+
 http.createServer(bot.middleware()).listen(3000)
 console.log('Echo bot server running at port 3000.')

@@ -140,8 +140,6 @@ var process_message = function(payload, reply) {
       }
     })
 
-
-
 };
 
 var welcome = function(reply) {
@@ -157,11 +155,11 @@ var welcome = function(reply) {
       }
     })
   })
-    .then(res => {
-      console.log(res);
-      return;
-    })
 };
+
+var confirmLink = function(reply) {
+  return reply({text: 'You have succesffully linked. What have you eaten today?'})
+}
 
 
 module.exports = {
